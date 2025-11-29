@@ -89,9 +89,13 @@ WSGI_APPLICATION = "defcon_ecommerce.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'odoo',           # your Odoo database
+        'USER': 'odoo',           # PostgreSQL user
+        'PASSWORD': 'odoo',       # PostgreSQL password
+        'HOST': 'localhost',      # or 'db' if inside Docker network
+        'PORT': '5432',
     }
 }
 

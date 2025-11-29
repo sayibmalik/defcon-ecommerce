@@ -30,6 +30,29 @@ services:
     networks:
       - odoo-net
 
+  django:
+    container_name: defcon-ecommerce-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    environment:
+      - DJANGO_DB_NAME=odoo
+      - DJANGO_DB_USER=odoo
+      - DJANGO_DB_PASSWORD=odoo
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=5432
+    ports:
+      - "8000:8000"
+    networks:
+      - odoo-net
+
 volumes:
   odoo-db-data:
   odoo-data:
