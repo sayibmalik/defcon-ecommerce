@@ -2,24 +2,27 @@ version: '3.8'
 
 services:
   db:
-    image: postgres:15
+    image: postgres:13
     container_name: odoo18-db
     environment:
-      POSTGRES_DB: odoo
+      POSTGRES_DB: postgres
       POSTGRES_USER: odoo
       POSTGRES_PASSWORD: odoo
+      PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - odoo-db-data:/var/lib/postgresql/data
     networks:
       - odoo-net
 
   odoo:
-    image: odoo:18.0
+    build:
+      context: .
+      dockerfile: odooDockerfile
     container_name: odoo18
     depends_on:
       - db
     ports:
-      - "8069:8069"
+      - "8099:8069"
     environment:
       HOST: db
       USER: odoo

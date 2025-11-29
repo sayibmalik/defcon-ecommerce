@@ -1,0 +1,2 @@
+qifparse
+psycopg2-binary

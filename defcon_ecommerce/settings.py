@@ -94,7 +94,7 @@ DATABASES = {
         'NAME': 'odoo',           # your Odoo database
         'USER': 'odoo',           # PostgreSQL user
         'PASSWORD': 'odoo',       # PostgreSQL password
-        'HOST': 'localhost',      # or 'db' if inside Docker network
+        'HOST': 'db',      # or 'db' if inside Docker network
         'PORT': '5432',
     }
 }
