@@ -35,4 +35,6 @@
 
 
 
-docker compose -f docker-compose-odoo.yaml -f docker-compose.yaml up -d --build
+docker compose up --build
+http://localhost:8000/api/models/
+http://localhost:8000/api/models/?model=account_account

@@ -8,13 +8,10 @@ class JsonRPCSerializer(serializers.Serializer):
 
 
 
-def create_dynamic_serializer(model):
-    """
-    Returns a read-only serializer for any model.
-    """
+def create_dynamic_serializer(model_class):
     class DynamicSerializer(serializers.ModelSerializer):
         class Meta:
-            model = model
+            model = model_class
             fields = '__all__'
-            read_only_fields = '__all__'
+            read_only_fields = [field.name for field in model_class._meta.fields]  # <-- fix
     return DynamicSerializer

@@ -69,35 +69,29 @@ class OdooProxyView(APIView):
 
 
 
-ODOO_MODELS = [
-    'account_account'
-    # 'res_partner', 
-    # 'sale_order', 
-    # 'product_template',
-    # add more as needed
-]
+# Map table names to model class names
+ODOO_MODELS = {
+    'res_partner': 'ResPartner',
+    'sale_order': 'SaleOrder',
+    'product_template': 'ProductTemplate',
+    'account_account': 'AccountAccount',
+}
 
 class DynamicModelAPIView(APIView):
-    """
-    Lists available models or returns paginated data from a model.
-    """
     pagination_class = PageNumberPagination
 
     def get(self, request):
-        model_name = request.query_params.get('model')
+        model_key = request.query_params.get('model')
+        if not model_key:
+            return Response({'models': list(ODOO_MODELS.keys())})
 
-        if not model_name:
-            # Return list of models
-            return Response({'models': ODOO_MODELS})
-
-        if model_name not in ODOO_MODELS:
+        if model_key not in ODOO_MODELS:
             return Response({'error': 'Model not found'}, status=404)
 
-        # Get the model dynamically
-        model = apps.get_model('home', model_name)
+        model_name = ODOO_MODELS[model_key]
+        model = apps.get_model('home', model_name)  # use class name
         serializer_class = create_dynamic_serializer(model)
 
-        # Pagination
         paginator = self.pagination_class()
         queryset = model.objects.all().order_by('id')
         page = paginator.paginate_queryset(queryset, request)
