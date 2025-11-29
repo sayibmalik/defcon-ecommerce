@@ -2,7 +2,9 @@ import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import JsonRPCSerializer
+from .serializers import JsonRPCSerializer, create_dynamic_serializer
+from django.apps import apps
+
 
 class OdooProxyView(APIView):
     """
@@ -61,3 +63,30 @@ class OdooProxyView(APIView):
             )
 
         return Response(odoo_result)
+
+
+
+
+
+class DynamicModelView(APIView):
+    """
+    API to list all models and fetch data from a given model.
+    """
+    
+    def get(self, request):
+        model_name = request.query_params.get('model')
+        if not model_name:
+            # return all model names
+            all_models = [m._meta.model_name for m in apps.get_models()]
+            return Response({'models': all_models})
+        
+        # get model class dynamically
+        try:
+            model = apps.get_model('home', model_name)
+        except LookupError:
+            return Response({'error': 'Model not found'}, status=404)
+        
+        serializer_class = create_dynamic_serializer(model)
+        queryset = model.objects.all()[:100]  # limit 100 records
+        serializer = serializer_class(queryset, many=True)
+        return Response(serializer.data)

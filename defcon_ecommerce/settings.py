@@ -92,7 +92,7 @@ WSGI_APPLICATION = "defcon_ecommerce.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',           # your Odoo database
+        'NAME': 'zainab',           # your Odoo database
         'USER': 'odoo',           # PostgreSQL user
         'PASSWORD': 'odoo',       # PostgreSQL password
         'HOST': 'db',      # or 'db' if inside Docker network
