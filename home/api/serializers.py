@@ -10,10 +10,11 @@ class JsonRPCSerializer(serializers.Serializer):
 
 def create_dynamic_serializer(model):
     """
-    Generates a serializer for any Django model dynamically.
+    Returns a read-only serializer for any model.
     """
     class DynamicSerializer(serializers.ModelSerializer):
         class Meta:
             model = model
             fields = '__all__'
+            read_only_fields = '__all__'
     return DynamicSerializer

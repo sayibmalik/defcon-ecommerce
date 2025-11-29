@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import JsonRPCSerializer, create_dynamic_serializer
 from django.apps import apps
+from rest_framework.pagination import PageNumberPagination
 
 
 class OdooProxyView(APIView):
@@ -68,25 +69,36 @@ class OdooProxyView(APIView):
 
 
 
-class DynamicModelView(APIView):
+ODOO_MODELS = [
+    'res_partner', 
+    'sale_order', 
+    'product_template',
+    # add more as needed
+]
+
+class DynamicModelAPIView(APIView):
     """
-    API to list all models and fetch data from a given model.
+    Lists available models or returns paginated data from a model.
     """
-    
+    pagination_class = PageNumberPagination
+
     def get(self, request):
         model_name = request.query_params.get('model')
+
         if not model_name:
-            # return all model names
-            all_models = [m._meta.model_name for m in apps.get_models()]
-            return Response({'models': all_models})
-        
-        # get model class dynamically
-        try:
-            model = apps.get_model('home', model_name)
-        except LookupError:
+            # Return list of models
+            return Response({'models': ODOO_MODELS})
+
+        if model_name not in ODOO_MODELS:
             return Response({'error': 'Model not found'}, status=404)
-        
+
+        # Get the model dynamically
+        model = apps.get_model('home', model_name)
         serializer_class = create_dynamic_serializer(model)
-        queryset = model.objects.all()[:100]  # limit 100 records
-        serializer = serializer_class(queryset, many=True)
-        return Response(serializer.data)
+
+        # Pagination
+        paginator = self.pagination_class()
+        queryset = model.objects.all().order_by('id')
+        page = paginator.paginate_queryset(queryset, request)
+        serializer = serializer_class(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
