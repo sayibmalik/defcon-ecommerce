@@ -70,9 +70,10 @@ class OdooProxyView(APIView):
 
 
 ODOO_MODELS = [
-    'res_partner', 
-    'sale_order', 
-    'product_template',
+    'account_account'
+    # 'res_partner', 
+    # 'sale_order', 
+    # 'product_template',
     # add more as needed
 ]
 

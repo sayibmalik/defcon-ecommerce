@@ -9,9 +9,9 @@ from django.db import models
 
 
 class AccountAccount(models.Model):
-    currency = models.ForeignKey('ResCurrency', models.DO_NOTHING, blank=True, null=True, db_comment='Account Currency')
-    create_uid = models.ForeignKey('ResUsers', models.DO_NOTHING, db_column='create_uid', blank=True, null=True, db_comment='Created by')
-    write_uid = models.ForeignKey('ResUsers', models.DO_NOTHING, db_column='write_uid', related_name='accountaccount_write_uid_set', blank=True, null=True, db_comment='Last Updated by')
+    # currency = models.ForeignKey('ResCurrency', models.DO_NOTHING, blank=True, null=True, db_comment='Account Currency')
+    # create_uid = models.ForeignKey('ResUsers', models.DO_NOTHING, db_column='create_uid', blank=True, null=True, db_comment='Created by')
+    # write_uid = models.ForeignKey('ResUsers', models.DO_NOTHING, db_column='write_uid', related_name='accountaccount_write_uid_set', blank=True, null=True, db_comment='Last Updated by')
     account_type = models.CharField(db_comment='Type')
     name = models.JSONField(db_comment='Account Name')
     code_store = models.JSONField(blank=True, null=True, db_comment='Code Store')
@@ -21,7 +21,7 @@ class AccountAccount(models.Model):
     non_trade = models.BooleanField(blank=True, null=True, db_comment='Non Trade')
     create_date = models.DateTimeField(blank=True, null=True, db_comment='Created on')
     write_date = models.DateTimeField(blank=True, null=True, db_comment='Last Updated on')
-    cash_flow_type = models.ForeignKey('AccountFinancialReport', models.DO_NOTHING, db_column='cash_flow_type', blank=True, null=True, db_comment='Cash Flow type')
+    # cash_flow_type = models.ForeignKey('AccountFinancialReport', models.DO_NOTHING, db_column='cash_flow_type', blank=True, null=True, db_comment='Cash Flow type')
 
     class Meta:
         managed = False
