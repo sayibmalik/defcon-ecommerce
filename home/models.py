@@ -11127,32 +11127,32 @@ class AccountAccount(models.Model):
 #         db_table_comment = 'Partner Title'
 
 
-# class ResUsers(models.Model):
-#     company = models.ForeignKey(ResCompany, models.DO_NOTHING)
-#     partner = models.ForeignKey(ResPartner, models.DO_NOTHING)
-#     active = models.BooleanField(blank=True, null=True)
-#     create_date = models.DateTimeField(blank=True, null=True)
-#     login = models.CharField()
-#     password = models.CharField(blank=True, null=True)
-#     action_id = models.IntegerField(blank=True, null=True, db_comment='Home Action')
-#     create_uid = models.ForeignKey('self', models.DO_NOTHING, db_column='create_uid', blank=True, null=True, db_comment='Created by')
-#     write_uid = models.ForeignKey('self', models.DO_NOTHING, db_column='write_uid', related_name='resusers_write_uid_set', blank=True, null=True, db_comment='Last Updated by')
-#     signature = models.TextField(blank=True, null=True, db_comment='Email Signature')
-#     share = models.BooleanField(blank=True, null=True, db_comment='Share User')
-#     write_date = models.DateTimeField(blank=True, null=True, db_comment='Last Updated on')
-#     totp_secret = models.CharField(blank=True, null=True)
-#     tour_enabled = models.BooleanField(blank=True, null=True, db_comment='Onboarding')
-#     notification_type = models.CharField(db_comment='Notification')
-#     odoobot_state = models.CharField(blank=True, null=True, db_comment='OdooBot Status')
-#     odoobot_failed = models.BooleanField(blank=True, null=True, db_comment='Odoobot Failed')
-#     sale_team = models.ForeignKey(CrmTeam, models.DO_NOTHING, blank=True, null=True, db_comment='User Sales Team')
-#     website = models.ForeignKey('Website', models.DO_NOTHING, blank=True, null=True, db_comment='Website')
-#     property_warehouse_id = models.JSONField(blank=True, null=True, db_comment='Default Warehouse')
+class ResUsers(models.Model):
+    # company = models.ForeignKey(ResCompany, models.DO_NOTHING)
+    # partner = models.ForeignKey(ResPartner, models.DO_NOTHING)
+    active = models.BooleanField(blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    login = models.CharField()
+    password = models.CharField(blank=True, null=True)
+    action_id = models.IntegerField(blank=True, null=True, db_comment='Home Action')
+    create_uid = models.ForeignKey('self', models.DO_NOTHING, db_column='create_uid', blank=True, null=True, db_comment='Created by')
+    write_uid = models.ForeignKey('self', models.DO_NOTHING, db_column='write_uid', related_name='resusers_write_uid_set', blank=True, null=True, db_comment='Last Updated by')
+    signature = models.TextField(blank=True, null=True, db_comment='Email Signature')
+    share = models.BooleanField(blank=True, null=True, db_comment='Share User')
+    write_date = models.DateTimeField(blank=True, null=True, db_comment='Last Updated on')
+    totp_secret = models.CharField(blank=True, null=True)
+    tour_enabled = models.BooleanField(blank=True, null=True, db_comment='Onboarding')
+    notification_type = models.CharField(db_comment='Notification')
+    odoobot_state = models.CharField(blank=True, null=True, db_comment='OdooBot Status')
+    odoobot_failed = models.BooleanField(blank=True, null=True, db_comment='Odoobot Failed')
+    # sale_team = models.ForeignKey(CrmTeam, models.DO_NOTHING, blank=True, null=True, db_comment='User Sales Team')
+    # website = models.ForeignKey('Website', models.DO_NOTHING, blank=True, null=True, db_comment='Website')
+    property_warehouse_id = models.JSONField(blank=True, null=True, db_comment='Default Warehouse')
 
-#     class Meta:
-#         managed = False
-#         db_table = 'res_users'
-#         unique_together = (('login', 'website'),)
+    class Meta:
+        managed = False
+        db_table = 'res_users'
+        # unique_together = (('login', 'website'),)
 
 
 # class ResUsersApikeys(models.Model):
