@@ -32,3 +32,7 @@
     },
     "id": 1
 }
+
+
+
+docker compose -f docker-compose-odoo.yaml -f docker-compose.yaml up -d --build
