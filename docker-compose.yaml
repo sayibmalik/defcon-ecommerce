@@ -5,7 +5,7 @@ services:
     image: postgres:15
     container_name: db
     environment:
-      POSTGRES_DB: odoo
+      POSTGRES_DB: postgres
       POSTGRES_USER: odoo
       POSTGRES_PASSWORD: odoo
       # PGDATA: /var/lib/postgresql/data/pgdata
@@ -28,24 +28,12 @@ services:
       USER: odoo
       PASSWORD: odoo
       DATABASE: odoo
+      MASTER_PASSWORD: odoo
     volumes:
       - odoo-data:/var/lib/odoo
       - ./backup:/backup
     networks:
       - odoo-net
-    command: >
-      sh -c "
-      until pg_isready -h db -U odoo; do
-          echo 'Waiting for PostgreSQL...';
-          sleep 2;
-      done;
-      # Only restore if DB does not exist
-      if ! psql -h db -U odoo -lqt | cut -d \| -f 1 | grep -qw odoo; then
-          echo 'Restoring backup...';
-          odoo --db_host=db --db_user=odoo --db_password=odoo -d odoo --restore /backup/odoo_backup.zip;
-      fi
-      exec odoo
-      "
 
   django:
     container_name: defcon-ecommerce-api
