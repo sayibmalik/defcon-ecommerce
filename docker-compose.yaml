@@ -1,34 +1,38 @@
 version: '3.8'
 
 services:
-  db:
-    image: postgres:15
-    container_name: db
-    environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: odoo
-      POSTGRES_PASSWORD: odoo
-      # PGDATA: /var/lib/postgresql/data/pgdata
-    volumes:
-      - odoo-db-data:/var/lib/postgresql/data
-    networks:
-      - odoo-net
+  # db:
+  #   image: postgres:15
+  #   container_name: db
+  #   environment:
+  #     POSTGRES_DB: postgres
+  #     POSTGRES_USER: odoo
+  #     POSTGRES_PASSWORD: odoo
+  #     TZ: Asia/Kolkata
+  #     POSTGRES_INITDB_ARGS: "--timezone=Asia/Kolkata"
+  #     # PGDATA: /var/lib/postgresql/data/pgdata
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - odoo-db-data:/var/lib/postgresql/data
+  #   networks:
+  #     - odoo-net
 
   odoo:
     build:
       context: .
       dockerfile: odooDockerfile
     container_name: odoo18
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
     ports:
       - "8099:8069"
     environment:
-      HOST: db
-      USER: odoo
-      PASSWORD: odoo
-      DATABASE: odoo
-      MASTER_PASSWORD: odoo
+      HOST: 89.116.20.12
+      USER: kasdeals_user
+      PASSWORD: ProMax@8020
+      DATABASE: kashdeals
+      MASTER_PASSWORD: FordRaptor@190023
     volumes:
       - odoo-data:/var/lib/odoo
       - ./backup:/backup
@@ -45,21 +49,21 @@ services:
              gunicorn defcon_ecommerce.wsgi:application --bind 0.0.0.0:8000 --workers 3"
     volumes:
       - .:/app
-    depends_on:
-      - db
+    # depends_on:
+      # - db
     environment:
-      - DJANGO_DB_NAME=odoo
-      - DJANGO_DB_USER=odoo
-      - DJANGO_DB_PASSWORD=odoo
-      - DJANGO_DB_HOST=db
-      - DJANGO_DB_PORT=5432
+      - DB_NAME=zainab
+      - DB_USER=kasdeals_user
+      - DB_PASSWORD=ProMax@8020
+      - DB_HOST=89.116.20.12
+      - DB_PORT=5432
     ports:
       - "8000:8000"
     networks:
       - odoo-net
 
 volumes:
-  odoo-db-data:
+  # odoo-db-data:
   odoo-data:
 
 networks:
