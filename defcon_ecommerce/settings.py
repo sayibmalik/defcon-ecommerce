@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework_simplejwt"
     "home",
+    "multivendor",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -58,15 +61,21 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     # Default permissions (change to IsAuthenticated for production)
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+        # 'rest_framework.permissions.AllowAny',
     ],
+    "DEFAULT_FILTER_BACKENDS": (
+        "django_filters.rest_framework.DjangoFilterBackend",
+    ),
     # Optional: pagination, throttle, etc.
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10,
 }
+
 
 TEMPLATES = [
     {
