@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "rest_framework_simplejwt"
+    "rest_framework_simplejwt",
     "home",
     "multivendor",
     "django_filters",
@@ -59,8 +59,8 @@ ROOT_URLCONF = "defcon_ecommerce.urls"
 REST_FRAMEWORK = {
     # Default authentication (you can change as needed)
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     # Default permissions (change to IsAuthenticated for production)

@@ -1,10 +1,10 @@
 # multivendor/views.py
 from rest_framework import viewsets, permissions, filters as drf_filters
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import Vendor, Product
-from .serializers import VendorSerializer, ProductSerializer
+from .models import Vendor
+from .serializers import VendorSerializer
 from .permissions import IsVendorOwnerOrReadOnly
-from .filters import VendorFilter, ProductFilter
+from .filters import VendorFilter
 
 
 class VendorViewSet(viewsets.ModelViewSet):

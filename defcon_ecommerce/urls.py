@@ -24,9 +24,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/', include('home.urls')),  
     path("api/multivendor/", include("multivendor.urls")),
-    path("api/auth/", include("auth_urls.urls"))
-    # JWT tokens (SimpleJWT)
-    path("api/auth/", include("multivendor.auth_urls"))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

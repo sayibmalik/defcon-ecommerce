@@ -5,7 +5,7 @@ from django.utils import timezone
 from home.models import ResUsers
 
 # Adjust this import to where your ResUsers model actually lives
-from accounts.models import ResUsers
+from home.models import ResUsers
 
 
 class Vendor(models.Model):

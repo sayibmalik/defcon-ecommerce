@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import Vendor, Product, VendorBankDetail
+from .models import Vendor, VendorBankDetail
 
 # Import ResUsers appropriately
 from home.models import ResUsers
