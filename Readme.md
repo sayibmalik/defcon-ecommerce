@@ -50,3 +50,11 @@ check base image for ref
 docker tag odoo18 nexus.defconinnovations.in/backup/kashdeals:odoo-18.1
 
 docker push nexus.defconinnovations.in/backup/kashdeals:odoo-18.1      
+
+
+tar -cf archive.tar C:\Users\sayib\Downloads\upload
+
+kubectl cp archive.tar kashdeals-8849f5cdf-k86vw:/var/lib/odoo -n kashdeals
+
+tar -xf archive.tar
+cp -r /var/lib/odoo/Users/sayib/Downloads/upload/* ./
