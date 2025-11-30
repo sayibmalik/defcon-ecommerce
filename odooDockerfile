@@ -1,24 +1,36 @@
-FROM odoo:18.0
+FROM nexus.defconinnovations.in/backup/kashdeals:odoo-18
 
 USER root
 
 # Install Python and pip
-RUN apt-get update && \
-    apt-get install -y python3-pip python3-venv && \
-    apt-get clean
+# RUN apt-get update && \
+#     apt-get install -y python3-pip python3-venv && \
+#     apt-get clean
 
-# Create virtualenv and install Python dependencies
-#RUN python3 -m venv /opt/venv && \
-#    /opt/venv/bin/pip install --upgrade pip
-
-COPY odoorequirements.txt /tmp/requirements.txt
-#RUN /opt/venv/bin/pip install -r /tmp/requirements.txt
-#RUN /usr/bin/python3 -m pip install -r requirements.txt
+# Install Python package
 RUN /usr/bin/python3 -m pip install --break-system-packages qifparse
-#ENV PATH="/opt/venv/bin:$PATH"
 
-# Copy custom addons and config (if needed)
-#COPY ./custom_addons /mnt/extra-addons
-#COPY ./odoo.conf /etc/odoo/odoo.conf
+# Set up directories and permissions
+# /var/lib/odoo is where Odoo stores filestore and some configs
+# RUN mkdir -p /var/lib/odoo && \
+#     chown -R 1000:1000 /var/lib/odoo && \
+#     chmod -R 775 /var/lib/odoo
+
+# Ensure /etc/odoo exists and has proper permissions for Odoo to write config
+# RUN mkdir -p /etc/odoo && \
+#     chown -R 1000:1000 /etc/odoo && \
+#     chmod -R 775 /etc/odoo
+
+# Copy requirements if needed
+COPY odoorequirements.txt /tmp/requirements.txt
+# Optional: install other requirements
+# RUN /usr/bin/python3 -m pip install -r /tmp/requirements.txt
+
+# Copy custom addons or config if you have any
+# COPY ./custom_addons /mnt/extra-addons
+# COPY ./odoo.conf /etc/odoo/odoo.conf
+
+# Switch back to Odoo user for security
+USER odoo
 
 CMD ["odoo"]

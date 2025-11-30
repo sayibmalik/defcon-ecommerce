@@ -38,3 +38,15 @@
 docker compose up --build
 http://localhost:8000/api/models/
 http://localhost:8000/api/models/?model=account_account
+
+
+
+
+how i moved the backup
+
+docker build -t odoo18 -f odooDockerfile .
+check base image for ref
+
+docker tag odoo18 nexus.defconinnovations.in/backup/kashdeals:odoo-18.1
+
+docker push nexus.defconinnovations.in/backup/kashdeals:odoo-18.1      
