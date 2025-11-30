@@ -2,7 +2,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
-from home.models import ResUsers
+from home.models import ResUsers, ProductTemplate
 
 # Adjust this import to where your ResUsers model actually lives
 from home.models import ResUsers
@@ -58,3 +58,18 @@ class VendorBankDetail(models.Model):
 
     def __str__(self):
         return f"Bank detail for {self.vendor.name}"
+
+
+class Product(models.Model):
+    vendor = models.ForeignKey(
+        Vendor,
+        on_delete=models.PROTECT,
+        related_name="vendor"
+    )
+    name = models.ForeignKey(
+        ProductTemplate,
+        on_delete=models.PROTECT,
+        related_name="products"
+    )
+    def __str__(self):
+        return f" {self.name.name}"
