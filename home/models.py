@@ -13649,10 +13649,10 @@ class WebTourTourStep(models.Model):
 
 class Website(models.Model):
     sequence = models.IntegerField(blank=True, null=True, db_comment='Sequence')
-    company = models.ForeignKey(ResCompany, models.DO_NOTHING, db_comment='Company')
+    company = models.ForeignKey(ResCompany, models.DO_NOTHING, db_comment='Company',related_name='website_company_set')
     default_lang = models.ForeignKey(ResLang, models.DO_NOTHING, db_comment='Default Language')
-    user = models.ForeignKey(ResUsers, models.DO_NOTHING, db_comment='Public User')
-    theme = models.ForeignKey(IrModuleModule, models.DO_NOTHING, blank=True, null=True, db_comment='Theme')
+    user = models.ForeignKey(ResUsers, models.DO_NOTHING, db_comment='Public User',related_name='website_user_set')
+    theme = models.ForeignKey(IrModuleModule, models.DO_NOTHING, blank=True, null=True, db_comment='Theme',related_name='website_theme_set')
     create_uid = models.ForeignKey(ResUsers, models.DO_NOTHING, db_column='create_uid', related_name='website_create_uid_set', blank=True, null=True, db_comment='Created by')
     write_uid = models.ForeignKey(ResUsers, models.DO_NOTHING, db_column='write_uid', related_name='website_write_uid_set', blank=True, null=True, db_comment='Last Updated by')
     name = models.CharField(db_comment='Website Name')
