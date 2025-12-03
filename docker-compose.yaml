@@ -5,7 +5,7 @@ services:
     image: postgres:15
     container_name: db
     environment:
-      POSTGRES_DB: odoo
+      POSTGRES_DB: postgres
       POSTGRES_USER: odoo
       POSTGRES_PASSWORD: odoo
       # TZ: Asia/Kolkata

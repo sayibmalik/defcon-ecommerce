@@ -32,7 +32,8 @@ class OdooProxyView(APIView):
         domain = args[5]
         extra = args[6]
 
-        odoo_url = "https://kashdeals.com/jsonrpc"
+        # odoo_url = "https://kashdeals.com/jsonrpc"
+        odoo_url = "http://defcon:8003/jsonrpc"
 
         # Prepare JSON-RPC data for Odoo call
         odoo_payload = {
