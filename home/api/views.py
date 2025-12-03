@@ -1,3 +1,4 @@
+import os
 import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -33,7 +34,8 @@ class OdooProxyView(APIView):
         extra = args[6]
 
         # odoo_url = "https://kashdeals.com/jsonrpc"
-        odoo_url = "http://api:8099/jsonrpc"
+        # odoo_url = "http://api:8069/jsonrpc"
+        odoo_url = os.environ.get('ODOO_URL', 'http://192.168.1.2:8099/jsonrpc/')
 
         # Prepare JSON-RPC data for Odoo call
         odoo_payload = {
