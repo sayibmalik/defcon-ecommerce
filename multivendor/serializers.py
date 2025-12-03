@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import Vendor, VendorBankDetail
+from .models import Product, Vendor, VendorBankDetail
 
 # Import ResUsers appropriately
 from home.models import ResUsers
@@ -57,3 +57,9 @@ class VendorSerializer(serializers.ModelSerializer):
             "bank_detail",
         )
         read_only_fields = ("id", "created_on", "updated_on", "rating")
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = '__all__'

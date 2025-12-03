@@ -1,7 +1,7 @@
 # multivendor/urls.py
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import VendorViewSet
+from .views import ProductViewSet, VendorViewSet
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -10,6 +10,7 @@ from rest_framework_simplejwt.views import (
 
 router = DefaultRouter()
 router.register(r'vendors', VendorViewSet, basename='vendor')
+router.register(r'products', ProductViewSet, basename='product')
 
 urlpatterns = [
     path("", include(router.urls)),
