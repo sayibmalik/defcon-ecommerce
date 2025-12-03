@@ -58,7 +58,7 @@ services:
       - DB_HOST=89.116.20.12
       - DB_PORT=5432
     ports:
-      - "8000:8000"
+      - "8003:8000"
     networks:
       - odoo-net
 
