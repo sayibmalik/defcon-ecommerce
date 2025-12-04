@@ -45,8 +45,11 @@ class Vendor(models.Model):
         verbose_name_plural = "Vendors"
         ordering = ["-created_on"]
 
+    # def __str__(self):
+    #     return self.res_user
     def __str__(self):
-        return self.name
+        # return "{}".format(self.res_user.login)
+        return f"{self.res_user.login} {self.user.username} - {self.user.email}"
 
 
 
