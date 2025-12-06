@@ -25,6 +25,7 @@ class VendorViewSet(viewsets.ModelViewSet):
             serializer.save()
 
 
+
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
