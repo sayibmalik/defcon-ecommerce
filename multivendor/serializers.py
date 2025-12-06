@@ -4,8 +4,18 @@ from .models import Product, Vendor, VendorBankDetail
 from home.models import ProductTemplate
 # Import ResUsers appropriately
 from home.models import ResUsers
+from decimal import Decimal, InvalidOperation
 
+class SafeDecimalField(serializers.DecimalField):
+    def to_representation(self, value):
+        try:
+            return super().to_representation(value)
+        except (InvalidOperation, ValueError, TypeError):
+            return None  # or "0.00" if you prefer
+        
 User = get_user_model()
+
+
 
 
 class UserShortSerializer(serializers.ModelSerializer):
@@ -60,6 +70,12 @@ class VendorSerializer(serializers.ModelSerializer):
 
 
 class ProductTemplateSerializer(serializers.ModelSerializer):
+    price = SafeDecimalField(max_digits=10, decimal_places=2, required=False)
+    list_price = SafeDecimalField(max_digits=10, decimal_places=2, required=False)
+    volume = SafeDecimalField(max_digits=10, decimal_places=2, required=False)
+    weight = SafeDecimalField(max_digits=10, decimal_places=2, required=False)
+    compare_list_price = SafeDecimalField(max_digits=10, decimal_places=2, required=False)
+    
     class Meta:
         model = ProductTemplate
         fields = '__all__'
@@ -70,3 +86,4 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
+
