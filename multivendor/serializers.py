@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import Product, Vendor, VendorBankDetail
-
+from home.models import ProductTemplate
 # Import ResUsers appropriately
 from home.models import ResUsers
 
@@ -59,7 +59,14 @@ class VendorSerializer(serializers.ModelSerializer):
         read_only_fields = ("id", "created_on", "updated_on", "rating")
 
 
+class ProductTemplateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductTemplate
+        fields = '__all__'
+
+
 class ProductSerializer(serializers.ModelSerializer):
+    name = ProductTemplateSerializer(read_only=True)
     class Meta:
         model = Product
         fields = '__all__'
