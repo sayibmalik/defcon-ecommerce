@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from django.db.models import Sum
 from .models import Product, Vendor, VendorBankDetail
-from home.models import ProductTemplate
+from home.models import ProductTemplate, ProductImage, StockQuant
 # Import ResUsers appropriately
 from home.models import ResUsers
 from decimal import Decimal, InvalidOperation
@@ -81,9 +82,55 @@ class ProductTemplateSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ProductImageSerializer(serializers.ModelSerializer):
+    """Serializer for 128px product images"""
+    class Meta:
+        model = ProductImage
+        fields = ('id', 'name', 'image_1128')
+
+
 class ProductSerializer(serializers.ModelSerializer):
     name = ProductTemplateSerializer(read_only=True)
+    image_128 = serializers.SerializerMethodField(read_only=True)
+    quantity = serializers.SerializerMethodField(read_only=True)
+    
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ('id', 'vendor', 'name', 'image_128', 'quantity')
+    
+    def get_image_128(self, obj):
+        """
+        Retrieve the 128px image for the product.
+        Returns the image_1128 field from ProductImage model if available.
+        """
+        try:
+            product_images = ProductImage.objects.filter(
+                product_tmpl_id=obj.name.id
+            ).first()
+            
+            if product_images and product_images.image_1128:
+                return {
+                    'id': product_images.id,
+                    'name': product_images.name,
+                    'image_128': product_images.image_1128
+                }
+        except Exception as e:
+            return None
+        return None
+    
+    def get_quantity(self, obj):
+        """
+        Retrieve total quantity available for the product from StockQuant.
+        Sums up quantity available across all warehouses.
+        """
+        try:
+            total_quantity = StockQuant.objects.filter(
+                product_id=obj.name.id
+            ).aggregate(
+                total_qty=Sum('quantity')
+            )['total_qty'] or 0
+            
+            return float(total_quantity)
+        except Exception as e:
+            return 0
 
