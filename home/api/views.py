@@ -1,5 +1,6 @@
 import os
 import requests
+from multivendor.models import Product
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -60,6 +61,10 @@ class OdooProxyView(APIView):
         try:
             response = requests.post(odoo_url, json=odoo_payload)
             odoo_result = response.json()
+            if model == 'product.template' and method == 'create':
+                # Log the result for debugging
+                print("Odoo Response:", odoo_result)
+                Product.objects.create(vendor=request.user, name=odoo_result['result']['id'])
         except Exception as e:
             return Response(
                 {"error": str(e)},

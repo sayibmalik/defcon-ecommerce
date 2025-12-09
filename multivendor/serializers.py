@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.db.models import Sum
 from .models import Product, Vendor, VendorBankDetail
-from home.models import ProductTemplate, ProductImage, StockQuant
+from home.models import ProductTemplate, ProductImage, SaleOrder, StockQuant
 # Import ResUsers appropriately
 from home.models import ResUsers
 from decimal import Decimal, InvalidOperation
@@ -134,3 +134,8 @@ class ProductSerializer(serializers.ModelSerializer):
         except Exception as e:
             return 0
 
+
+class SaleOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SaleOrder
+        fields = '__all__'
