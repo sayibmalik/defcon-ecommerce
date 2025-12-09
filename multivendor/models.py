@@ -3,7 +3,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from home.models import ResUsers, ProductTemplate
-
+from django.contrib.auth.models import User
 # Adjust this import to where your ResUsers model actually lives
 from home.models import ResUsers
 
@@ -76,3 +76,10 @@ class Product(models.Model):
     )
     def __str__(self):
         return f" {self.name.name}"
+    
+
+class EmailOTPVerification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    otp = models.CharField(max_length=6)
+    created_at = models.DateTimeField(default=timezone.now)
+    is_verified = models.BooleanField(default=False)
