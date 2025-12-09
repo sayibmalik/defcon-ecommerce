@@ -6,6 +6,7 @@ from .serializers import ProductSerializer, VendorSerializer
 from .permissions import IsVendorOwnerOrReadOnly
 from .filters import VendorFilter
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from django_filters import rest_framework as filters
 
 class VendorViewSet(viewsets.ModelViewSet):
     queryset = Vendor.objects.all().select_related("user", "res_user")
@@ -24,6 +25,12 @@ class VendorViewSet(viewsets.ModelViewSet):
         else:
             serializer.save()
 
+class ProductFilter(filters.FilterSet):
+    vendor = filters.NumberFilter(field_name="vendor",lookup_expr='exact') 
+
+    class Meta:
+        model = Product
+        fields = ['vendor']
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -31,3 +38,4 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+    filterset_class = ProductFilter 
