@@ -92,6 +92,8 @@ TEMPLATES = [
     },
 ]
 
+
+
 WSGI_APPLICATION = "defcon_ecommerce.wsgi.application"
 
 
@@ -103,9 +105,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME', 'zainab'),        # Default fallback
         'USER': os.environ.get('DB_USER', 'odoo'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'odoo'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'FordRaptor@190023'),
         'HOST': os.environ.get('DB_HOST', '89.116.20.12'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
+        'PORT': os.environ.get('DB_PORT', '5433'),
     }
 }
 
