@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-r(0e0c4je=&0yo3$hfs1u5z=p@4(_2*o8#h@29+u)h63fkc5au
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','ecommerce.defconinnovations.com']
 
 
 # Application definition
@@ -104,7 +104,7 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME', 'zainab'),        # Default fallback
         'USER': os.environ.get('DB_USER', 'odoo'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'odoo'),
-        'HOST': os.environ.get('DB_HOST', 'db'),
+        'HOST': os.environ.get('DB_HOST', '89.116.20.12'),
         'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
