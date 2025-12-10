@@ -104,7 +104,7 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME', 'zainab'),        # Default fallback
         'USER': os.environ.get('DB_USER', 'odoo'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'odoo'),
-        'HOST': os.environ.get('DB_HOST', 'db'),
+        'HOST': os.environ.get('DB_HOST', '89.116.20.12'),
         'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
